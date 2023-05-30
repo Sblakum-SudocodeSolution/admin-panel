@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./Component/View/UI/Dashboard";
+import ManageUser from "./Component/View/UI/ManageUser/ManageUser";
+import WorkQueue from "./Component/View/UI/WorkQueue/Work_Queue";
+import Profile from "./Component/View/Profile/Profile";
+import Application from "./Component/View/UI/Application";
+import Signin from "./Component/View/Pages/Singin";
+import Signup from "./Component/View/Pages/Signup";
+// import ProtectedRoutes from "./Component/services/ProtectedRoutes";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" exact element={<Signin />} />
+          <Route path="/signup" exact element={<Signup />} />
+
+          <Route path="/dashboard" exact element={<Dashboard />} />
+          <Route path="/manage-user" element={<ManageUser />} />
+          <Route path="/work-queue" element={<WorkQueue />} />
+          <Route path="/appliaction" element={<Application />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
