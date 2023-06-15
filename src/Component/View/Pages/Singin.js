@@ -18,8 +18,8 @@ export default function Signin() {
   let navigate = useNavigate();
 
   const [inputVal, setInputVal] = React.useState({
-    userName: "",
-    userPassword: "",
+    userName: "Sidhdharth_Lakum",
+    userPassword: "sid@2002",
   });
   const [errMsg, setErrMsg] = React.useState("");
 

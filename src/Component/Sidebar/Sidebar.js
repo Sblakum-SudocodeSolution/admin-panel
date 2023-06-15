@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -71,8 +71,15 @@ const Drawer = styled(MuiDrawer, {
 export default function Sidebar() {
   const theme = useTheme();
   const navigate = useNavigate();
-
   const open = useAppStore((state) => state.dopen);
+
+  const USER_TYPES = {
+    INTERNAL_USER: "Internal User",
+    INDIVIDUAL: "Individual",
+    COMPANY_USER: " Company_User",
+  };
+
+  var CURRENT_USER_TYPE = USER_TYPES.INTERNAL_USER;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -90,6 +97,7 @@ export default function Sidebar() {
           </IconButton>
         </DrawerHeader>
         <Divider />
+
         <List>
           <ListItem
             disablePadding
@@ -121,65 +129,68 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/manage-user");
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+          {CURRENT_USER_TYPE === USER_TYPES.INTERNAL_USER ? (
+            <>
+              <ListItem
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={() => {
+                  navigate("/manage-user");
                 }}
               >
-                <GroupSharpIcon sx={{ color: "#6366f1" }} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Manage User"
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
-          </ListItem>
-
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/work-queue");
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <GroupSharpIcon sx={{ color: "#6366f1" }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Manage User"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={() => {
+                  navigate("/work-queue");
                 }}
               >
-                <WorkspacesSharpIcon sx={{ color: "#6366f1" }} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Work Queue"
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
-          </ListItem>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <WorkspacesSharpIcon sx={{ color: "#6366f1" }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Work Queue"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </>
+          ) : null}
 
           <ListItem
             disablePadding

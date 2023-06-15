@@ -8,9 +8,9 @@ export default function Model(props) {
   const [userData, setUserData] = useState([]);
 
   const apiUrl = `https://alecapi.sudocodesolutions.com/api/Activity/`;
-  const authToken = localStorage.getItem("loggedinToken");
 
   useEffect(() => {
+    const authToken = localStorage.getItem("loggedinToken");
     axios
       .get(`${apiUrl}id?activityId=${props.selecteditemid}`, {
         headers: {
@@ -21,22 +21,49 @@ export default function Model(props) {
       .then((res) => {
         setUserData(res.data);
       });
-  }, [apiUrl, authToken, props.selecteditemid]);
+  }, [props.selecteditemid]);
 
-  const rejectUser = async () => {
-    console.log("Reject");
+  const Post_Api_Url =
+    "https://alecapi.sudocodesolutions.com/api/Activity/update";
+
+  const allowUser = async (id) => {
+    const authToken = localStorage.getItem("loggedinToken");
+    const headers = {
+      Authorization: `Bearer ${authToken}`,
+      "Content-Type": "application/json",
+    };
+    const data = {
+      actionRemarks: "Approve",
+      actionId: id,
+      output: 1,
+      actionTakenByEmail: "sblakum@gmail.com",
+      actionTakenByName: "Sidhdharth_Lakum",
+      actionFolderUrl: "",
+    };
+    axios.post(Post_Api_Url, data, {
+      headers: headers,
+    });
+
     props.onHide();
   };
 
-  const postApiUrl =
-    "https://alecapi.sudocodesolutions.com/api/Activity/update";
+  const rejectUser = async (id) => {
+    const authToken = localStorage.getItem("loggedinToken");
+    const headers = {
+      Authorization: `Bearer ${authToken}`,
+      "Content-Type": "application/json",
+    };
+    const data = {
+      actionRemarks: "Reject",
+      actionId: id,
+      output: 2,
+      actionTakenByEmail: "sblakum@gmail.com",
+      actionTakenByName: "Sidhdharth_Lakum",
+      actionFolderUrl: "",
+    };
 
-  const accessUser = async () => {
-    axios.post(postApiUrl, {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        "Content-Type": "application/json",
-      },
+    axios.post(Post_Api_Url, data, {
+      headers: headers,
     });
     props.onHide();
   };
@@ -72,13 +99,16 @@ export default function Model(props) {
               <b>userType :</b> {userData.userType}
             </ListGroup.Item>
             <ListGroup.Item className="text-end">
-              <Button variant="outline-danger" onClick={() => rejectUser()}>
+              <Button
+                variant="outline-danger"
+                onClick={() => rejectUser(userData.uniqueId)}
+              >
                 Reject
               </Button>
               <Button
                 variant="outline-success"
                 className="m-2"
-                onClick={() => accessUser()}
+                onClick={() => allowUser(userData.uniqueId)}
               >
                 Allow
               </Button>

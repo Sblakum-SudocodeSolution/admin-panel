@@ -7,6 +7,9 @@ import Profile from "./Component/View/Profile/Profile";
 import Application from "./Component/View/UI/Application";
 import Signin from "./Component/View/Pages/Singin";
 import Signup from "./Component/View/Pages/Signup";
+import UserElement from "./Component/View/UI/UserElement";
+import AdminElement from "./Component/View/UI/AdminElement";
+
 // import ProtectedRoutes from "./Component/services/ProtectedRoutes";
 
 function App() {
@@ -16,10 +19,31 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Signin />} />
           <Route path="/signup" exact element={<Signup />} />
-
-          <Route path="/dashboard" exact element={<Dashboard />} />
-          <Route path="/manage-user" element={<ManageUser />} />
-          <Route path="/work-queue" element={<WorkQueue />} />
+          <Route
+            path="/dashboard"
+            exact
+            element={
+              // <UserElement>
+              <Dashboard />
+              // </UserElement>
+            }
+          />
+          <Route
+            path="/manage-user"
+            element={
+              <AdminElement>
+                <ManageUser />
+              </AdminElement>
+            }
+          />
+          <Route
+            path="/work-queue"
+            element={
+              <AdminElement>
+                <WorkQueue />
+              </AdminElement>
+            }
+          />
           <Route path="/appliaction" element={<Application />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>

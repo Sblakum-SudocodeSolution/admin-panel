@@ -22,9 +22,10 @@ export default function WorkQueueTable() {
 
   const apiUrl =
     "https://alecapi.sudocodesolutions.com/api/Activity/status?statusId=3";
-  const authToken = localStorage.getItem("loggedinToken");
 
   const getAPIListData = () => {
+    const authToken = localStorage.getItem("loggedinToken");
+
     axios
       .get(apiUrl, {
         headers: {
